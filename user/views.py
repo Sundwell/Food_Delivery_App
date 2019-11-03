@@ -1,7 +1,6 @@
 from django.contrib.auth.views import LoginView, LogoutView
-from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, UpdateView, FormView, CreateView
+from django.views.generic import DetailView, UpdateView, CreateView
 
 from user.models import User
 
@@ -15,14 +14,15 @@ class UserLogoutView(LogoutView):
 
 
 class UserRegisterView(CreateView):
+    """
+    Creates new user if form is valid and hashes it's password
+    """
     model = User
     template_name = 'user/register.html'
     success_url = reverse_lazy('user:login')
     fields = (
         'username',
         'email',
-        'address',
-        'phone',
         'password',
     )
 
@@ -38,3 +38,6 @@ class UserProfileView(DetailView):
     template_name = 'user/profile.html'
     context_object_name = 'user'
 
+
+class UserProfileEditView(UpdateView):
+    pass
