@@ -1,0 +1,17 @@
+version: '3'
+services:
+    food_delivery_database:
+        image: postgres:latest
+        container_name: food_delivery_database
+        restart: always
+        volumes:
+            - food_delivery_database:/var/lib/psql/data
+        environment:
+            POSTGRES_PASSWORD: "admin5"
+            POSTGRES_USER: "serhii"
+            POSTGRES_DB: "food_delivery_database"
+            PGDATA: "/var/lib/psql/data/food_delivery_database/"
+        ports:
+          - 5430:5432
+volumes:
+  food_delivery_database:

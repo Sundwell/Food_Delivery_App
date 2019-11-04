@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        <div class="content-section">
+            <fieldset class="form-group">
+                {% bootstrap_form form %}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-success" type="submit">Sing up</button>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
