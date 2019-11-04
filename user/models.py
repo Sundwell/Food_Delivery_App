@@ -1,6 +1,12 @@
+import os
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
+
+
+def get_image_path(instance, filename):
+    return os.path.join('user/images/', str(instance.slug), filename)
 
 
 class User(AbstractUser):
@@ -23,7 +29,8 @@ class User(AbstractUser):
         null=True,
         blank=True
     )
-    phone = models.IntegerField(
+    phone = models.CharField(
+        max_length=13,
         null=True,
         blank=True
     )
@@ -46,12 +53,10 @@ class User(AbstractUser):
         null=True
     )
     photo = models.ImageField(
+        # upload_to='user/images/',
+        upload_to=get_image_path,
         default='user/images/user_default.jpg',
         null=True
-    )
-    about = models.TextField(
-        null=True,
-        blank=True
     )
     age = models.IntegerField(
         null=True,
@@ -68,7 +73,13 @@ class User(AbstractUser):
         null=True,
         blank=True
     )
+    email = models.EmailField(
+        'email address',
+        unique=True,
+    )
     activities = models.ManyToManyField('user.Activity', related_name='users')
+
+    REQUIRED_FIELDS = ('email', 'password',)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.username)
@@ -78,7 +89,7 @@ class User(AbstractUser):
         return self.username
 
     class Meta:
-        unique_together = ('username', 'email')
+        unique_together = ('username',)
 
 
 class Activity(models.Model):

@@ -2,6 +2,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView, CreateView
 
+from user.forms import UserUpdateForm
 from user.models import User
 
 
@@ -40,4 +41,11 @@ class UserProfileView(DetailView):
 
 
 class UserProfileEditView(UpdateView):
-    pass
+    model = User
+    template_name = 'user/update.html'
+    context_object_name = 'user'
+    form_class = UserUpdateForm
+
+    def get_success_url(self):
+        success_url = self.success_url = reverse_lazy('user:profile', args=[self.kwargs['slug']])
+        return success_url
