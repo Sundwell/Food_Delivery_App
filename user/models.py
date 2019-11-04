@@ -10,16 +10,11 @@ class User(AbstractUser):
     def save also slugify 'slug' field.
     """
 
-    # constants for user user fields
+    # constants for user fields
     GENDERS = (
         (None, '-'),
         ('M', 'Male'),
         ('F', 'Female'),
-    )
-
-    HOBBIES = (
-        ('sport', 'Sport'),
-        ('games', 'Computer Games'),
     )
 
     # user custom fields
@@ -35,6 +30,7 @@ class User(AbstractUser):
     name = models.CharField(
         max_length=20,
         null=True,
+        blank=True,
         default=''
     )
     bonuses = models.DecimalField(
@@ -72,13 +68,7 @@ class User(AbstractUser):
         null=True,
         blank=True
     )
-    hobbie = models.CharField(
-        max_length=20,
-        choices=HOBBIES,
-        default='Sport',
-        null=True,
-        blank=True
-    )
+    activities = models.ManyToManyField('user.Activity', related_name='users')
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.username)
@@ -87,8 +77,16 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
-    def has_permission(self):
-        return self.is_superuser
+    class Meta:
+        unique_together = ('username', 'email')
+
+
+class Activity(models.Model):
+
+    activity = models.CharField(max_length=25)
+
+    def __str__(self):
+        return self.activity
 
     class Meta:
-        unique_together = ['username', 'email']
+        verbose_name_plural = 'Activities'
