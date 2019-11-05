@@ -3,9 +3,20 @@ import os
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 def get_image_path(instance, filename):
+    """
+    :param instance:    instance of object such as object 'serhii' which has slugField same as name,
+                        ie serhii.slug == 'serhii'
+                        type of instance: <user.models.User>
+
+    :param filename:    just name of the file like 'apple.png'
+                        type of filename: <str>
+
+    :return: simply     returning path where django should save our file
+    """
     return os.path.join('user/images/', str(instance.slug), filename)
 
 
@@ -29,8 +40,7 @@ class User(AbstractUser):
         null=True,
         blank=True
     )
-    phone = models.CharField(
-        max_length=13,
+    phone = PhoneNumberField(
         null=True,
         blank=True
     )
@@ -53,7 +63,6 @@ class User(AbstractUser):
         null=True
     )
     photo = models.ImageField(
-        # upload_to='user/images/',
         upload_to=get_image_path,
         default='user/images/user_default.jpg',
         null=True
@@ -77,19 +86,26 @@ class User(AbstractUser):
         'email address',
         unique=True,
     )
-    activities = models.ManyToManyField('user.Activity', related_name='users')
+    EMAIL_FIELD = 'email'
+    activities = models.ManyToManyField(
+        'user.Activity',
+        related_name='users',
+        blank=True
+    )
 
     REQUIRED_FIELDS = ('email', 'password',)
 
     def save(self, *args, **kwargs):
+        if not self.username:
+            self.username = self.email
         self.slug = slugify(self.username)
-        super(User, self).save()
+        super(User, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.username
 
     class Meta:
-        unique_together = ('username',)
+        unique_together = ('username', 'email')
 
 
 class Activity(models.Model):

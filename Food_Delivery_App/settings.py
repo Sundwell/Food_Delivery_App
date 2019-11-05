@@ -25,7 +25,7 @@ SECRET_KEY = '-&4+$_c6&t%-@oa4*veu++b7!q15#dq)ssm%@ote@swtnnc8$m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = '*'
+ALLOWED_HOSTS = '*'
 
 
 # Application definition
@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'bootstrap4',
 
     # custom apps
     'user.apps.UserConfig',
@@ -48,6 +47,12 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
+
+    'django_select2',
+
+    'bootstrap4',
+
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
@@ -150,12 +155,18 @@ LOGIN_REDIRECT_URL = '/'
 
 # OAUTH
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
 
 SITE_ID = 1

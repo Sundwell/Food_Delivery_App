@@ -35,6 +35,8 @@
                     <b>Activities</b>:
                     {% for act in user.activities.all %}
                         {{ act }}.
+                    {% empty %}
+                        No activities.
                     {% endfor %}
                 </p>
                 <p><b>Birthday</b>: {{ user.birthday }}</p>
