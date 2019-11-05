@@ -2,11 +2,13 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView, CreateView
 
+from user.forms import UserUpdateForm, UserLoginForm
 from user.models import User
 
 
 class UserLoginView(LoginView):
     template_name = 'user/login.html'
+    form_class = UserLoginForm
 
 
 class UserLogoutView(LogoutView):
@@ -40,4 +42,10 @@ class UserProfileView(DetailView):
 
 
 class UserProfileEditView(UpdateView):
-    pass
+    model = User
+    template_name = 'user/update.html'
+    context_object_name = 'user'
+    form_class = UserUpdateForm
+
+    def get_success_url(self):
+        return reverse_lazy('user:profile', args=[self.kwargs['slug']])

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+        <form method="post" enctype="multipart/form-data">{% csrf_token %}
+            {% bootstrap_form form %}
+            <button type="submit" class="btn btn-success">Save</button>
+            <a role="button" type="submit" href="{% url 'user:profile' user.slug %}" class="btn btn-danger">Dismiss changes</a>
+        </form>
+{% endblock %}

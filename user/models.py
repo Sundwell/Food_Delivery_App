@@ -1,6 +1,23 @@
+import os
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
+from phonenumber_field.modelfields import PhoneNumberField
+
+
+def get_image_path(instance, filename):
+    """
+    :param instance:    instance of object such as object 'serhii' which has slugField same as name,
+                        ie serhii.slug == 'serhii'
+                        type of instance: <user.models.User>
+
+    :param filename:    just name of the file like 'apple.png'
+                        type of filename: <str>
+
+    :return: simply     returning path where django should save our file
+    """
+    return os.path.join('user/images/', str(instance.slug), filename)
 
 
 class User(AbstractUser):
@@ -23,7 +40,7 @@ class User(AbstractUser):
         null=True,
         blank=True
     )
-    phone = models.IntegerField(
+    phone = PhoneNumberField(
         null=True,
         blank=True
     )
@@ -46,12 +63,9 @@ class User(AbstractUser):
         null=True
     )
     photo = models.ImageField(
+        upload_to=get_image_path,
         default='user/images/user_default.jpg',
         null=True
-    )
-    about = models.TextField(
-        null=True,
-        blank=True
     )
     age = models.IntegerField(
         null=True,
@@ -68,11 +82,24 @@ class User(AbstractUser):
         null=True,
         blank=True
     )
-    activities = models.ManyToManyField('user.Activity', related_name='users')
+    email = models.EmailField(
+        'email address',
+        unique=True,
+    )
+    EMAIL_FIELD = 'email'
+    activities = models.ManyToManyField(
+        'user.Activity',
+        related_name='users',
+        blank=True
+    )
+
+    REQUIRED_FIELDS = ('email', 'password',)
 
     def save(self, *args, **kwargs):
+        if not self.username:
+            self.username = self.email
         self.slug = slugify(self.username)
-        super(User, self).save()
+        super(User, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.username

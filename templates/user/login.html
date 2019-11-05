@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% load bootstrap4 %}
+{% load socialaccount bootstrap4 %}
+{% providers_media_js %}
 
 {% block content %}
     <form method="post" enctype="multipart/form-data">{% csrf_token %}
@@ -9,6 +10,8 @@
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-success" type="submit">Sing in</button>
+                <a class="btn btn-outline-info" href="{% provider_login_url 'google' %}">Sing in with Google</a>
+                <a class="btn btn-outline-info" href="{% provider_login_url 'facebook' %}">Sing in with Facebook</a>
             </div>
         </div>
     </form>
