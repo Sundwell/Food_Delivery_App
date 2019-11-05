@@ -28,5 +28,5 @@ class UserUpdateForm(forms.ModelForm):
             'birthday',
         )
         widgets = {
-            'activities': Select2MultipleWidget,
+            'activities': Select2MultipleWidget(),
         }
