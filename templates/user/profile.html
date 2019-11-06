@@ -20,11 +20,11 @@
                 <p><b>Gender</b>: {{ user.gender|default:'No gender chosen' }}</p>
                 <p><b>Age</b>: {{ user.age|default:'Age is not defined' }}</p>
                 <p>
-                    <b>Activities</b>:
-                    {% for act in user.activities.all %}
-                        {{ act }}.
+                    <b>Preferences</b>:
+                    {% for cat in user.categories.all %}
+                        {{ cat }}.
                     {% empty %}
-                        No activities.
+                        No preferences.
                     {% endfor %}
                 </p>
                 <p><b>Birthday</b>: {{ user.birthday }}</p>

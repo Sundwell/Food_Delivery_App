@@ -30,3 +30,6 @@ class UserUpdateForm(forms.ModelForm):
         widgets = {
             'categories': Select2MultipleWidget(),
         }
+        labels = {
+            'categories': 'Preferences',
+        }
