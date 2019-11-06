@@ -1,0 +1,30 @@
+[
+{
+    "model": "user.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$lBGFlhmWDHna$KFppn/ctG/b+QV3xs2XS+dwWt9kUinfS3ZZsgqyd76E=",
+        "last_login": "2019-11-06T13:12:18Z",
+        "is_superuser": true,
+        "username": "serhii",
+        "first_name": "\u0421\u0435\u0440\u0433\u0435\u0439",
+        "last_name": "\u041b\u044f\u043c\u0446\u0435\u0432",
+        "is_active": true,
+        "date_joined": "2019-11-06T13:10:24Z",
+        "address": "\u041f\u0443\u0448\u043a\u0438\u043d\u0441\u043a\u0430\u044f 79/5,",
+        "phone": "+380668371544",
+        "name": "\u0421\u0435\u0440\u0433\u0435\u0439",
+        "bonuses": "666.66",
+        "slug": "serhii",
+        "photo": "user/images/user_default.jpg",
+        "age": 18,
+        "gender": "M",
+        "birthday": "2001-05-06",
+        "email": "lyamtsev.s2017@gmail.com",
+        "is_staff": true,
+        "groups": [],
+        "user_permissions": [],
+        "categories": []
+    }
+}
+]

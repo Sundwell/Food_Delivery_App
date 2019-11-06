@@ -1,0 +1,18 @@
+[
+{
+    "model": "product.category",
+    "pk": 1,
+    "fields": {
+        "category": "Meat",
+        "image": "something.jpeg"
+    }
+},
+{
+    "model": "product.category",
+    "pk": 2,
+    "fields": {
+        "category": "Fruit",
+        "image": "product/images/no_image.png"
+    }
+}
+]

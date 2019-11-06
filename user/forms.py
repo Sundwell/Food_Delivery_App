@@ -23,10 +23,13 @@ class UserUpdateForm(forms.ModelForm):
             'phone',
             'age',
             'gender',
-            'activities',
+            'categories',
             'photo',
             'birthday',
         )
         widgets = {
-            'activities': Select2MultipleWidget(),
+            'categories': Select2MultipleWidget(),
+        }
+        labels = {
+            'categories': 'Preferences',
         }

@@ -1,10 +1,5 @@
 from django.contrib import admin
-from user.models import User, Activity
-
-
-class ActivityAdmin(admin.ModelAdmin):
-    fields = ('activity',)
+from user.models import User
 
 
 admin.site.register(User)
-admin.site.register(Activity, ActivityAdmin)
