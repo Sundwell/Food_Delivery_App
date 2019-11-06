@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    Main page of products
+    {% for product in user_rec_list %}
+        <p>{{ product.name }}</p>
+    {% endfor %}
+{% endblock %}

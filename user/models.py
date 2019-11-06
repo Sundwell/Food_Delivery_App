@@ -87,12 +87,17 @@ class User(AbstractUser):
         unique=True,
     )
     EMAIL_FIELD = 'email'
-    activities = models.ManyToManyField(
-        'user.Activity',
-        related_name='users',
-        blank=True
+    is_staff = models.BooleanField(
+        default=False,
+        blank=False,
+        null=True,
+        help_text='Staff can Add products and send requests for removing products',
     )
-
+    categories = models.ManyToManyField(
+        'product.Category',
+        blank=True,
+        related_name='users',
+    )
     REQUIRED_FIELDS = ('email', 'password',)
 
     def save(self, *args, **kwargs):
@@ -106,14 +111,3 @@ class User(AbstractUser):
 
     class Meta:
         unique_together = ('username', 'email')
-
-
-class Activity(models.Model):
-
-    activity = models.CharField(max_length=25)
-
-    def __str__(self):
-        return self.activity
-
-    class Meta:
-        verbose_name_plural = 'Activities'

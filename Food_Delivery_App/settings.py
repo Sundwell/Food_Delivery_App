@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     # custom apps
     'user.apps.UserConfig',
+    'product.apps.ProductConfig',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
