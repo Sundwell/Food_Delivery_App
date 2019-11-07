@@ -10,6 +10,8 @@
                 <h3>{{ product.name }}</h3>
                 <p>Price: {{ product.price }}</p>
                 <p>About: {{ product.short_description }}</p>
+                <a class="btn btn-outline-info btn-block" href="{% url 'product:about' product.id %}">More</a>
+                <a class="btn btn-outline-success btn-block" href="#">Add to cart</a>
             </div>
         {% empty %}
         {% endfor %}

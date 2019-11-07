@@ -4,18 +4,18 @@
     <div class="content-section">
 
         <div class="row">
-            <div class="col-2 text-center bg-light border ">
+            <div class="col-sm-12 col-md-2 text-center bg-light border ">
                 <h3>User</h3>
                 <img class="border-bottom" src="{{ user.photo.url }}" alt="" width="100%">
                 <h3><p class="badge badge-primary w-100">{{ user.username }}</p></h3>
             </div>
-            <div class="col-4 bg-light border">
+            <div class="col-sm-12 col-md-4 bg-light border">
                 <h3 class="text-center">Main Info</h3>
                     <p><b>Name</b>: {{ user.name|default:'Customer' }}</p>
                     <p><b>Phone</b>: {{ user.phone|default:'No phone set' }}</p>
                     <p><b>Address</b>: {{ user.address|default:'No address specified' }}</p>
             </div>
-            <div class="col-6 bg-light border">
+            <div class="col-sm-12 col-md-6 bg-light border">
                 <h3 class="text-center">Additional Info</h3>
                 <p><b>Gender</b>: {{ user.gender|default:'No gender chosen' }}</p>
                 <p><b>Age</b>: {{ user.age|default:'Age is not defined' }}</p>

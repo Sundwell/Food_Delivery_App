@@ -35,4 +35,5 @@ class ProductAddView(FormView):
 
 
 class ProductAboutView(DetailView):
-    pass
+    model = Product
+    template_name = 'product/about.html'
