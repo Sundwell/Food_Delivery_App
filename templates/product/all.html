@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+    <h1 class="border border-secondary mb-4 mt-4 text-center text-white bg-dark rounded">{{ slug|title }} Products</h1>
+
+    <div class="row">
+        {% for product in products %}
+            <div class="col-sm-12 col-md-3 border mb-4 text-center">
+                <img width="100%" src="{{ product.main_photo.url }}" alt="">
+                <h3>{{ product.name }}</h3>
+                <p>Price: {{ product.price }}</p>
+                <p>About: {{ product.short_description }}</p>
+            </div>
+        {% empty %}
+        {% endfor %}
+    </div>
+
+    <div class="btn-group float-right">
+        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort
+        </button>
+        <div class="dropdown-menu">
+            {% for cat in categories %}
+                <a class="dropdown-item" href="{% url 'product:all' cat.category %}">{{ cat }}</a>
+            {% endfor %}
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'product:all' 'all'%}">Reset</a>
+        </div>
+    </div>
+
+    {% bootstrap_pagination page_obj %}
+{% endblock %}
