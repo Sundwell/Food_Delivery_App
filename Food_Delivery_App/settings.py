@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # custom apps
     'user.apps.UserConfig',
     'product.apps.ProductConfig',
+    'cart.apps.CartConfig',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',

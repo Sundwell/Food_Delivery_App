@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load custom_cart_filters %}
+{% block content %}
+    <div id="msg-empty" class="w-50 position-relative mx-auto text-center border bg-dark text-light rounded"></div>
+    <h3 class="text-center" id="cart-empty"></h3>
+    <div id="cart-block">
+        {% if cart.products.items %}
+            <div class="row text-center">
+                <div class="col-3 border">Photo</div>
+                <div class="col-3 border">Name</div>
+                <div class="col-3 border">Price</div>
+                <div class="col-3 border">Count</div>
+                {% for key, value in cart.products.items %}
+                    <div class="col-3 border">
+                        <img style="width: 50px; height: 50px" src="{{ key|get_product_photo_url }}"
+                             alt="Product photo">
+                    </div>
+                    <div class="col-3 border pt-2">
+                        <p>{{ key }}</p>
+                    </div>
+                    <div class="col-3 border pt-2">
+                        <p>{{ key|get_product_price }}</p>
+                    </div>
+                    <div class="col-3 border pt-2">
+                        <p>{{ value }}</p>
+                    </div>
+                {% endfor %}
+
+            </div>
+            <div class="content-section clearfix">
+                <button class="btn btn-sm btn-secondary float-left mt-4" onclick="clear_cart({{ cart.id }})">Clear cart
+                </button>
+                <span class="float-right badge badge-secondary mt-4">Sum: {{ cart.cost }}</span>
+            </div>
+        {% else %}
+            <h3 class="text-center">Your cart is empty.</h3>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block extrajs %}
+    <script>
+        function clear_cart(id) {
+            $.ajax({
+                method: 'get',
+                url: '{% url "cart:ajax_clear" %}',
+                data: {
+                    'id': id,
+                },
+                dataType: 'json',
+                {#success: function(data) {#}
+                {#    $('#cart').html(data.count);#}
+                //$('#msg').html("data insert successfully").fadeIn('slow') //also show a success message
+                success: function (data) {
+                    $("#cart-block").remove();
+                    $('#cart').html(0);
+                    $('#cart-empty').html('Your cart is empty');
+                    $('#msg-empty').html(data.msg).fadeIn('slow');
+                    $('#msg-empty').delay(1500).fadeOut('slow');
+                },
+            })
+        }
+    </script>
+{% endblock %}
