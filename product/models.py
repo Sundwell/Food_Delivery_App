@@ -37,6 +37,32 @@ class Product(TimeStampedModel, models.Model):
         default=0,
         validators=[MinValueValidator(0, 'Wrong price')]
     )
+    # Composition
+    weight = models.DecimalField(
+        decimal_places=2,
+        max_digits=12,
+        validators=[MinValueValidator(0, 'Wrong weight')],
+        default=0,
+        null=True,
+    )
+    calories = models.PositiveIntegerField(
+        verbose_name='Calories',
+        default=0,
+        null=True,
+    )
+    carbohydrates = models.PositiveIntegerField(
+        default=0,
+        null=True,
+    )
+    proteins = models.PositiveIntegerField(
+        default=0,
+        null=True,
+    )
+    fats = models.PositiveIntegerField(
+        default=0,
+        null=True,
+    )
+    # Additional
     views = models.IntegerField(default=0)
     to_remove = models.BooleanField(verbose_name='Marked for deleting', default=False)
 

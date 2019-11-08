@@ -1,8 +1,23 @@
 {% extends 'base.html' %}
-
+{% load bootstrap4 %}
 {% block content %}
-    Main page of products
-    {% for product in user_rec_list %}
-        <p>{{ product.name }}</p>
-    {% endfor %}
+
+    <h1 class="border border-secondary mb-4 mt-4 text-center text-white bg-dark rounded">Popular</h1>
+    <div class="row">
+        {% for product in products %}
+            <div class="col-sm-12 col-md-3 border mb-4 text-center">
+                <img width="100%" src="{{ product.main_photo.url }}" alt="">
+                <h3>{{ product.name }}</h3>
+                <p>Price: {{ product.price }}</p>
+                <p>About: {{ product.short_description }}</p>
+                <a class="btn btn-outline-info btn-block" href="{% url 'product:about' product.id %}">More</a>
+                <a class="btn btn-outline-success btn-block" href="#">Add to cart</a>
+{#                <p>Views: {{ product.views }}</p>#}
+            </div>
+        {% empty %}
+        {% endfor %}
+        <a class="btn btn-outline-dark btn-block btn-lg" href="{% url 'product:all' 'all' %}" role="button">See all products</a>
+    </div>
+
+
 {% endblock %}
