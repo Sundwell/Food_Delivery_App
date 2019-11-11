@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 {% block content %}
-
     <h1 class="border border-secondary mb-4 mt-4 text-center text-white bg-dark rounded">Popular</h1>
     <div class="row">
         {% for product in products %}
@@ -11,7 +10,7 @@
                 <p>Price: {{ product.price }}</p>
                 <p>About: {{ product.short_description }}</p>
                 <a class="btn btn-outline-info btn-block" href="{% url 'product:about' product.id %}">More</a>
-                <a class="btn btn-outline-success btn-block" href="#">Add to cart</a>
+                <button class="btn btn-outline-success btn-block" onclick="addProduct('{{ product.name }}')">Add to cart</button>
 {#                <p>Views: {{ product.views }}</p>#}
             </div>
         {% empty %}

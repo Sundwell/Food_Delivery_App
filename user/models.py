@@ -5,6 +5,8 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
 from phonenumber_field.modelfields import PhoneNumberField
 
+from cart.models import Cart
+
 
 def get_image_path(instance, filename):
     """

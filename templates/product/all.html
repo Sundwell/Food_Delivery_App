@@ -11,7 +11,7 @@
                 <p>Price: {{ product.price }}</p>
                 <p>About: {{ product.short_description }}</p>
                 <a class="btn btn-outline-info btn-block" href="{% url 'product:about' product.id %}">More</a>
-                <a class="btn btn-outline-success btn-block" href="#">Add to cart</a>
+                <button class="btn btn-outline-success btn-block" onclick="addProduct('{{ product.name }}')">Add to cart</button>
             </div>
         {% empty %}
         {% endfor %}
