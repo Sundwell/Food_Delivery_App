@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="w-50 position-relative mx-auto text-center border bg-dark text-light rounded">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <form method="post">{% csrf_token %}
+        {% bootstrap_form form %}
+        <button class="btn btn-success form-class" type="submit">Submit</button>
+        <span class="btn btn-primary float-right">Total cost: {{ cost }}</span>
+    </form>
+
+{% endblock %}

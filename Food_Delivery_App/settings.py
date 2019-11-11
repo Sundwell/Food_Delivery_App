@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
 
     'django_select2',
-
+    'bootstrap_datepicker_plus',
     'bootstrap4',
 
     'phonenumber_field',

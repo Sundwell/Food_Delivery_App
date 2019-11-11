@@ -13,6 +13,7 @@ urlpatterns = [
     path('shop/', include('product.urls', namespace='product')),
     path('logout/', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
     path('shop/', include('cart.urls', namespace='cart')),
+    path('shop/cart/', include('order.urls', namespace='order')),
 ]
 
 if settings.DEBUG:

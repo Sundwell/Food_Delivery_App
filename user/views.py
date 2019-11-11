@@ -47,6 +47,9 @@ class UserProfileView(DetailView):
     template_name = 'user/profile.html'
     context_object_name = 'user'
 
+    # def get_queryset(self):
+    #     return User.objects.get(id=self.request.user.id)
+
 
 class UserProfileEditView(UpdateView):
     model = User
