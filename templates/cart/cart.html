@@ -41,10 +41,11 @@
     <script>
         function clear_cart(id) {
             $.ajax({
-                method: 'get',
+                method: 'post',
                 url: '{% url "cart:ajax_clear" %}',
                 data: {
                     'id': id,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
                 },
                 dataType: 'json',
                 {#success: function(data) {#}

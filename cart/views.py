@@ -18,9 +18,9 @@ class ViewCart(ListView):
 
 class AddProduct(View):
 
-    def get(self, request):
+    def post(self, request):
         cart = Cart.objects.get(user__id=self.request.user.id)
-        name1 = request.GET.get('name', None)
+        name1 = request.POST.get('name', None)
         prod_price = Product.objects.get(name=name1).price
 
         if name1 in cart.products:
@@ -40,9 +40,8 @@ class AddProduct(View):
 
 class ClearCart(View):
 
-    def get(self, request):
-        print('aaaa')
-        id1 = request.GET.get('id', None)
+    def post(self, request):
+        id1 = request.POST.get('id', None)
         ca = Cart.objects.get(id=id1)
         ca.products.clear()
         ca.cost = 0
