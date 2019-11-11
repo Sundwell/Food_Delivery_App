@@ -39,7 +39,9 @@ class Order(models.Model):
         null=True,
         help_text='Such as 1234-5678-1234-5678',
     )
-    card_date = models.DateField(
+    card_date = models.CharField(
+        max_length=5,
+        validators=[RegexValidator(r'^\d{2}/\d{2}$', 'Wrong date')],
         help_text='Such as 11/11',
     )
     card_cvs = models.IntegerField(
