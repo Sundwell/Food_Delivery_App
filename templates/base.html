@@ -58,16 +58,16 @@
 <script>
     function addProduct(name) {
         $.ajax({
-            method: 'get',
+            method: 'post',
             url: '{% url "cart:ajax_add" %}',
             data: {
                 'name': name,
+                csrfmiddlewaretoken: '{{ csrf_token }}',
             },
             dataType: 'json',
-            success: function(data) {
+            success: function (data) {
                 $('#cart').html(data.count);
                 $('#msg').html(data.msg).fadeIn('slow');
-                //$('#msg').html("data insert successfully").fadeIn('slow') //also show a success message
                 $('#msg').delay(5000).fadeOut('slow');
             }
         })

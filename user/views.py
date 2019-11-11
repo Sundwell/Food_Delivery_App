@@ -1,9 +1,10 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, UpdateView, CreateView
+from django.views.generic import DetailView, UpdateView, CreateView, ListView
 
 from cart.models import Cart
+from order.models import Order
 from user.forms import UserUpdateForm, UserLoginForm
 from user.models import User
 
@@ -59,3 +60,12 @@ class UserProfileEditView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('user:profile', args=[self.kwargs['slug']])
+
+
+class ShowOrders(ListView):
+    model = Order
+    template_name = 'user/orders.html'
+    context_object_name = 'orders'
+
+    def get_queryset(self):
+        return Order.objects.filter(user_id=self.request.user.id)

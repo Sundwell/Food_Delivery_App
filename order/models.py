@@ -9,6 +9,7 @@ class Order(models.Model):
     ORDER_STATUSES = (
         ('done', 'Done'),
         ('in_process', 'In process'),
+        ('error', 'For deleting'),
     )
     PAYMENT = (
         ('card', 'By card'),
@@ -71,3 +72,6 @@ class Order(models.Model):
         default=0,
         null=True,
     )
+
+    def __str__(self):
+        return f'Order №{self.id}'

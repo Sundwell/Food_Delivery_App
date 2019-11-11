@@ -1,11 +1,12 @@
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView
 
 from cart.models import Cart
 from order.forms import CheckoutForm, CardPaymentForm
 from order.models import Order
+from product.models import Product
 from user.models import User
 
 
@@ -36,6 +37,8 @@ class CheckoutView(CreateView):
 
     def form_valid(self, form):
         if self.request.POST.get('payment') == 'cash':
+            self.request.user.bonuses += self.request.user.cart.cost / 100
+            self.request.user.save()
             self.request.user.cart.refresh()
             return super().form_valid(form)
         elif self.request.POST.get('payment') == 'bonuses':
@@ -49,6 +52,9 @@ class CheckoutView(CreateView):
                 messages.add_message(self.request, messages.INFO, 'Not enough bonuses')
                 return redirect(reverse_lazy('order:checkout'))
         else:
+            order = form.save(commit=False)
+            order.status = 'error'
+            order.save()
             super().form_valid(form)
             return redirect(reverse_lazy('order:card', args=[self.request.user.orders.last().id]))
 
@@ -57,14 +63,23 @@ class PayByCard(UpdateView):
     template_name = 'order/card_payment.html'
     model = Order
     form_class = CardPaymentForm
-    # def get_queryset(self):
-    #     return self.request.user.orders.last()
+    initial = {'status': 'in_process'}
 
     def get_success_url(self):
         return reverse_lazy('user:profile', args=[self.request.user.slug])
 
     def form_valid(self, form):
+        self.request.user.bonuses += self.request.user.cart.cost / 100
+        self.request.user.save()
         self.request.user.cart.refresh()
         return super().form_valid(form)
 
+
+class ThanksPage(ListView):
+    template_name = 'thanks.html'
+    model = Product
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        return Product.objects.order_by('-created')[:5]
 

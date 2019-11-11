@@ -35,7 +35,9 @@ class CardPaymentForm(forms.ModelForm):
             'card_number',
             'card_date',
             'card_cvs',
+            'status',
         )
         widgets = {
-            'card_date': DatePickerInput(format='%m/%y')
+            'card_date': DatePickerInput(format='%m/%y'),
+            'status': HiddenInput,
         }

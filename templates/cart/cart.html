@@ -28,8 +28,9 @@
 
             </div>
             <div class="content-section clearfix">
-                <button class="btn btn-sm btn-secondary float-left mt-4" onclick="clear_cart({{ cart.id }})">Clear cart
+                <button class="btn btn-sm btn-secondary mt-4" onclick="clear_cart({{ cart.id }})">Clear cart
                 </button>
+                <a role="button" class="btn btn-sm btn-success mt-4" href="{% url 'order:checkout' %}">Make order</a>
                 <span class="float-right badge badge-secondary mt-4">Sum: {{ cart.cost }}</span>
             </div>
         {% else %}
@@ -41,10 +42,11 @@
     <script>
         function clear_cart(id) {
             $.ajax({
-                method: 'get',
+                method: 'post',
                 url: '{% url "cart:ajax_clear" %}',
                 data: {
                     'id': id,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
                 },
                 dataType: 'json',
                 {#success: function(data) {#}
