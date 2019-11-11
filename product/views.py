@@ -17,7 +17,7 @@ class ProductAllView(ListView):
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset()
-        if self.kwargs.get('slug', False) != 'all':
+        if self.kwargs.get('slug', None) != 'all':
             queryset = queryset.filter(categories__category=self.kwargs['slug'])
         return queryset
 

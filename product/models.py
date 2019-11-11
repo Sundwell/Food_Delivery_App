@@ -1,5 +1,6 @@
 from django.core.validators import MinValueValidator
 from django.db import models
+from django_extensions.db.fields.json import JSONField
 from django_extensions.db.models import TimeStampedModel
 from product.add_functions import get_additional_images_path, get_image_path
 
@@ -38,33 +39,24 @@ class Product(TimeStampedModel, models.Model):
         validators=[MinValueValidator(0, 'Wrong price')]
     )
     # Composition
-    weight = models.DecimalField(
-        decimal_places=2,
-        max_digits=12,
-        validators=[MinValueValidator(0, 'Wrong weight')],
-        default=0,
+    composition = JSONField(
+        default={
+            'weight': 0,
+            'calories': 0,
+            'carbohydrates': 0,
+            'proteins': 0,
+            'fats': 0,
+        },
         null=True,
+
     )
-    calories = models.PositiveIntegerField(
-        verbose_name='Calories',
-        default=0,
-        null=True,
-    )
-    carbohydrates = models.PositiveIntegerField(
-        default=0,
-        null=True,
-    )
-    proteins = models.PositiveIntegerField(
-        default=0,
-        null=True,
-    )
-    fats = models.PositiveIntegerField(
-        default=0,
-        null=True,
-    )
+
     # Additional
     views = models.IntegerField(default=0)
-    to_remove = models.BooleanField(verbose_name='Marked for deleting', default=False)
+    to_remove = models.BooleanField(
+        verbose_name='Marked for deleting',
+        default=False
+    )
 
     def __str__(self):
         return self.name

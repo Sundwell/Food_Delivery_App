@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
-
+{% load custom_product_filters %}
 {% block content %}
     <h1 class="border border-secondary mb-4 mt-4 text-center text-white bg-dark rounded">{{ product.name }}</h1>
     <div class="row">
-        {#    slider   #}
         <div class="col-sm-12 col-md-4 border-right border-black bg-light text-center">
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner w-100">
@@ -25,12 +24,10 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
-            {#            <a href="#" role="button" class="btn btn-outline-success w-50 btn-block btn-lg mx-auto mt-2" onclick="addProduct({{ product.name }})">Buy</a>#}
             <button class="btn btn-outline-success w-50 btn-block btn-lg mx-auto mt-2"
                     onclick="addProduct('{{ product.name }}')">Buy
             </button>
         </div>
-        {#    endslider  #}
 
         <div class="col-sm-12 col-md-4 border-right">
             <h3 class="btn btn-block btn-lg btn-outline-secondary mb-4 mt-4">Description</h3>
@@ -40,11 +37,11 @@
 
         <div class="col-sm-12 col-md-4">
             <h3 class="btn btn-block btn-lg btn-outline-secondary mb-4 mt-4">Composition</h3>
-            <p class="lead">Weight: {{ product.weight }} grams</p>
-            <p class="lead">Calories: {{ product.calories }}</p>
-            <p class="lead">Carbohydrates: {{ product.carbohydrates }}</p>
-            <p class="lead">Proteins: {{ product.proteins }}</p>
-            <p class="lead">Fats: {{ product.fats }}</p>
+            <p class="lead">Weight: {{ product|get_product_composition:'weight' }} grams</p>
+            <p class="lead">Calories: {{ product|get_product_composition:'calories' }}</p>
+            <p class="lead">Carbohydrates: {{ product|get_product_composition:'carbohydrates' }}</p>
+            <p class="lead">Proteins: {{ product|get_product_composition:'proteins' }}</p>
+            <p class="lead">Fats: {{ product|get_product_composition:'fats' }}</p>
         </div>
     </div>
 {% endblock %}
