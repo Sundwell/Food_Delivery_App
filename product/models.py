@@ -39,7 +39,6 @@ class Product(TimeStampedModel, models.Model):
         validators=[MinValueValidator(0, 'Wrong price')]
     )
     # Composition
-    # Composition
     composition = JSONField(
         default={
             'weight': 0,
@@ -51,6 +50,7 @@ class Product(TimeStampedModel, models.Model):
         null=True,
 
     )
+
     # Additional
     views = models.IntegerField(default=0)
     to_remove = models.BooleanField(
